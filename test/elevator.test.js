@@ -8,28 +8,19 @@ var chai           = require('chai'),
     expect         = chai.expect;
 
 describe('Module Elevator', function () {
-    var elevator,
-        // Not all tests set a handler so we set empty defaults to avoid an error when removing them
-        stoppedOnFloorHandler = function () {},
-        isIdleHandler         = function () {};
+    var elevator;
 
     beforeEach(function () {
         elevator = new Elevator();
     });
 
-    afterEach(function () {
-        elevator.removeListener('stoppedOnFloor', stoppedOnFloorHandler);
-        elevator.removeListener('isIdle', isIdleHandler);
-    })
-
     it('should stop at a floor', function (done) {
         this.timeout(1000);
 
-        stoppedOnFloorHandler = function (result) {
+        elevator.on('stoppedOnFloor', function (result) {
             expect(result).to.have.property('floor').and.to.equal(5);
             done();
-        };
-        elevator.on('stoppedOnFloor', stoppedOnFloorHandler);
+        });
 
         elevator.goToFloor(5);
     });
@@ -37,13 +28,12 @@ describe('Module Elevator', function () {
     it('should stop at a floor indicating the direction it is heading', function (done) {
         this.timeout(1000);
 
-        stoppedOnFloorHandler = function (result) {
+        elevator.once('stoppedOnFloor', function (result) {
             expect(result).to.have.property('floor').and.to.equal(2);
 
             expect(result).to.have.property('direction').and.to.equal('down');
             done();
-        };
-        elevator.once('stoppedOnFloor', stoppedOnFloorHandler);
+        });
 
         elevator.goToFloor(2);
         elevator.goToFloor(1);
@@ -52,11 +42,10 @@ describe('Module Elevator', function () {
     it('should notify when idle', function (done) {
         this.timeout(1000);
 
-        isIdleHandler = function () {
+        elevator.once('isIdle', function () {
             expect(true);
             done();
-        };
-        elevator.on('isIdle', isIdleHandler);
+        });
 
         elevator.goToFloor(5);
     });
@@ -65,16 +54,14 @@ describe('Module Elevator', function () {
         var visitedFloorList = [];
         this.timeout(1000);
 
-        stoppedOnFloorHandler = function (result) {
+        elevator.on('stoppedOnFloor', function (result) {
             visitedFloorList.push(result.floor);
-        };
-        elevator.on('stoppedOnFloor', stoppedOnFloorHandler);
+        });
 
-        isIdleHandler = function (result) {
+        elevator.once('isIdle', function (result) {
             expect(visitedFloorList).to.deep.equal([5,6,7]);
             done();
-        };
-        elevator.on('isIdle', isIdleHandler);
+        });
 
         elevator.goToFloor(6);
         elevator.goToFloor(7);
@@ -85,11 +72,11 @@ describe('Module Elevator', function () {
         var visitedFloorList = [];
         this.timeout(1000);
 
-        elevator.on('stoppedOnFloor',function (result) {
+        elevator.on('stoppedOnFloor', function (result) {
             visitedFloorList.push(result.floor);
         });
 
-        elevator.on('isIdle',function (result) {
+        elevator.once('isIdle', function (result) {
             expect(visitedFloorList).to.deep.equal([3,2,1]);
             done();
         });
@@ -103,11 +90,11 @@ describe('Module Elevator', function () {
         var visitedFloorList = [];
         this.timeout(1000);
 
-        elevator.on('stoppedOnFloor',function (result) {
+        elevator.on('stoppedOnFloor', function (result) {
             visitedFloorList.push(result.floor);
         });
 
-        elevator.on('isIdle',function (result) {
+        elevator.once('isIdle', function (result) {
             expect(visitedFloorList).to.deep.equal([7,2,1]);
             done();
         });
@@ -121,11 +108,11 @@ describe('Module Elevator', function () {
         var visitedFloorList = [];
         this.timeout(1000);
 
-        elevator.on('stoppedOnFloor',function (result) {
+        elevator.on('stoppedOnFloor', function (result) {
             visitedFloorList.push(result.floor);
         });
 
-        elevator.on('isIdle',function (result) {
+        elevator.once('isIdle', function (result) {
             expect(visitedFloorList).to.deep.equal([1,5,7]);
             done();
         });
@@ -143,11 +130,11 @@ describe('Module Elevator', function () {
         var visitedFloorList = [];
         this.timeout(1000);
 
-        elevator.on('stoppedOnFloor',function (result) {
+        elevator.on('stoppedOnFloor', function (result) {
             visitedFloorList.push(result.floor);
         });
 
-        elevator.on('isIdle',function (result) {
+        elevator.once('isIdle', function (result) {
             expect(visitedFloorList).to.deep.equal([1,7,5]);
             done();
         });
@@ -165,7 +152,7 @@ describe('Module Elevator', function () {
         var visitedFloorList = [];
         this.timeout(1000);
 
-        elevator.once('stoppedOnFloor',function (result) {
+        elevator.once('stoppedOnFloor', function (result) {
             expect(result).to.have.property('floor').and.to.equal(2);
 
             expect(result).to.have.property('direction').and.to.equal('up');
