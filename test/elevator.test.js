@@ -34,6 +34,21 @@ describe('Module Elevator', function () {
         elevator.goToFloor(5);
     });
 
+    it('should stop at a floor indicating the direction it is heading', function (done) {
+        this.timeout(1000);
+
+        stoppedOnFloorHandler = function (result) {
+            expect(result).to.have.property('floor').and.to.equal(2);
+
+            expect(result).to.have.property('direction').and.to.equal('down');
+            done();
+        };
+        elevator.once('stoppedOnFloor', stoppedOnFloorHandler);
+
+        elevator.goToFloor(2);
+        elevator.goToFloor(1);
+    });
+
     it('should notify when idle', function (done) {
         this.timeout(1000);
 
@@ -144,6 +159,23 @@ describe('Module Elevator', function () {
         setTimeout(() => {
             elevator.goToFloor(5, 'down');
         }, 100);
+    });
+
+    it('should indicate the direction is up when it stops at the last floor going downwards', function (done) {
+        var visitedFloorList = [];
+        this.timeout(1000);
+
+        elevator.once('stoppedOnFloor',function (result) {
+            expect(result).to.have.property('floor').and.to.equal(2);
+
+            expect(result).to.have.property('direction').and.to.equal('up');
+
+            done();
+        });
+
+        // First send the elevator downward and immediately back to the top
+        elevator.goToFloor(2);
+        elevator.goToFloor(5);
     });
 
 });
