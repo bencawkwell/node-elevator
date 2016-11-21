@@ -31,7 +31,7 @@ describe('Module Elevator', function () {
         };
         elevator.on('stoppedOnFloor', stoppedOnFloorHandler);
 
-        elevator.gotToFloor(5);
+        elevator.goToFloor(5);
     });
 
     it('should notify when idle', function (done) {
@@ -43,7 +43,7 @@ describe('Module Elevator', function () {
         };
         elevator.on('isIdle', isIdleHandler);
 
-        elevator.gotToFloor(5);
+        elevator.goToFloor(5);
     });
 
     it('should stop at all the floors in the correct order going upwards', function (done) {
@@ -61,9 +61,9 @@ describe('Module Elevator', function () {
         };
         elevator.on('isIdle', isIdleHandler);
 
-        elevator.gotToFloor(6);
-        elevator.gotToFloor(7);
-        elevator.gotToFloor(5);
+        elevator.goToFloor(6);
+        elevator.goToFloor(7);
+        elevator.goToFloor(5);
     });
 
     it('should stop at all the floors in the correct order going downwards', function (done) {
@@ -79,9 +79,9 @@ describe('Module Elevator', function () {
             done();
         });
 
-        elevator.gotToFloor(3);
-        elevator.gotToFloor(1);
-        elevator.gotToFloor(2);
+        elevator.goToFloor(3);
+        elevator.goToFloor(1);
+        elevator.goToFloor(2);
     });
 
     it('should stop at all the floors in the correct order going upwards then downwards', function (done) {
@@ -97,9 +97,9 @@ describe('Module Elevator', function () {
             done();
         });
 
-        elevator.gotToFloor(7);
-        elevator.gotToFloor(1);
-        elevator.gotToFloor(2);
+        elevator.goToFloor(7);
+        elevator.goToFloor(1);
+        elevator.goToFloor(2);
     });
 
 });
