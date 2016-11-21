@@ -102,4 +102,26 @@ describe('Module Elevator', function () {
         elevator.goToFloor(2);
     });
 
+    it('should stop at the floor while it is travelling in the requested direction', function (done) {
+        var visitedFloorList = [];
+        this.timeout(1000);
+
+        elevator.on('stoppedOnFloor',function (result) {
+            visitedFloorList.push(result.floor);
+        });
+
+        elevator.on('isIdle',function (result) {
+            expect(visitedFloorList).to.deep.equal([1,5,7]);
+            done();
+        });
+
+        // First send the elevator to the bottom
+        elevator.goToFloor(1);
+        elevator.goToFloor(7);
+        // Now while the elevator is heading upwards call it to an intermediate floor
+        setTimeout(() => {
+            elevator.goToFloor(5);
+        }, 100);
+    });
+
 });
