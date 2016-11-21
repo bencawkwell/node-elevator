@@ -66,7 +66,6 @@ describe('Module Elevator', function () {
         elevator.gotToFloor(5);
     });
 
-
     it('should stop at all the floors in the correct order going downwards', function (done) {
         var visitedFloorList = [];
         this.timeout(1000);
@@ -81,6 +80,24 @@ describe('Module Elevator', function () {
         });
 
         elevator.gotToFloor(3);
+        elevator.gotToFloor(1);
+        elevator.gotToFloor(2);
+    });
+
+    it('should stop at all the floors in the correct order going upwards then downwards', function (done) {
+        var visitedFloorList = [];
+        this.timeout(1000);
+
+        elevator.on('stoppedOnFloor',function (result) {
+            visitedFloorList.push(result.floor);
+        });
+
+        elevator.on('isIdle',function (result) {
+            expect(visitedFloorList).to.deep.equal([7,2,1]);
+            done();
+        });
+
+        elevator.gotToFloor(7);
         elevator.gotToFloor(1);
         elevator.gotToFloor(2);
     });
