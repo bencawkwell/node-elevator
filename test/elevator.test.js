@@ -5,7 +5,8 @@ var chai           = require('chai'),
 
     Elevator       = requireFromLib('elevator'),
 
-    expect         = chai.expect;
+    expect         = chai.expect,
+    floorDelayMs   = 10;
 
 describe('Module Elevator', function () {
     var elevator;
@@ -24,7 +25,7 @@ describe('Module Elevator', function () {
     }
 
     beforeEach(function () {
-        elevator = new Elevator();
+        elevator = new Elevator(floorDelayMs);
     });
 
     it('should stop at a floor', function (done) {
@@ -104,7 +105,7 @@ describe('Module Elevator', function () {
         // Now while the elevator is heading upwards call it to an intermediate floor
         setTimeout(() => {
             elevator.goToFloor(5, 'up');
-        }, 100);
+        }, floorDelayMs * 2);
     });
 
     it('should not stop at the floor while it is travelling in the opposite requested direction', function (done) {
@@ -118,7 +119,7 @@ describe('Module Elevator', function () {
         // Now while the elevator is heading upwards call it to an intermediate floor
         setTimeout(() => {
             elevator.goToFloor(5, 'down');
-        }, 100);
+        }, floorDelayMs * 2);
     });
 
     it('should indicate the direction is up when it stops at the last floor going downwards', function (done) {
@@ -150,7 +151,7 @@ describe('Module Elevator', function () {
              // Now while the elevator is heading downwards a request from 1st and 5th floor to go up
             elevator.goToFloor(1, 'up');
             elevator.goToFloor(5, 'up');
-        }, 200);
+        }, floorDelayMs * 4);
     });
 
     it('should visit the same floor in both directions when switching direction from going up to down', function (done) {
@@ -168,7 +169,7 @@ describe('Module Elevator', function () {
 
              // Now while the elevator is heading upwards a request from 7th
             elevator.goToFloor(7, 'down');
-        }, 150);
+        }, floorDelayMs * 3);
     });
 
 });
