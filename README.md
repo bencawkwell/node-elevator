@@ -34,11 +34,12 @@ See TEST_CASES.md for more examples of controlling the elevator.
 ## List of useful commands
 
 ```javascript
-showFloor()   // go to 7th floor
+showFloor()   // Show the floor on which the elevator currently resides
 insidePanel   // Dump the current insidePanel object
 outPanel[1-7] // Dump one of the outsidePanel objects
 u             // Shorthand for "up", for example outPanel1.press(u)
 d             // Shorthand for "down", for example outPanel7.isLit(u)
+.exit         // Exit
 ```
 
 ### insidePanel
