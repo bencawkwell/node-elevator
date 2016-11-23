@@ -29,7 +29,7 @@ watch instead (in another terminal).
 tail -f elevator.log
 ```
 
-See TEST_CASES.md for more examples of controlling the elevator.
+See [the test cases](TEST_CASES.md) for more examples of controlling the elevator.
 
 ## List of useful commands
 
