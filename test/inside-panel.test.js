@@ -25,6 +25,14 @@ describe('Module InsidePanel', function () {
         panel = new InsidePanel(elevator);
     });
 
+    it('should throw an Error when checking isLit() on a button that does not exist', function () {
+        expect(panel.isLit.bind(panel, 8)).to.throw(Error, 'Button does not exist');
+    });
+
+    it('should throw an Error when pressing a button that does not exist', function () {
+        expect(panel.press.bind(panel, 0)).to.throw(Error, 'Button does not exist');
+    });
+
     it('should light up the correct floor when a button is pressed ', function () {
         panel.press(7);
 

@@ -24,20 +24,20 @@ describe('Module OutsidePanel', function () {
         elevator = new Elevator();
     });
 
-    it('should only provide an up button if instantiated for the ground floor', function () {
+    it('should not have a down button if instantiated for the ground floor', function () {
         var panel = new OutsidePanel(1, elevator);
 
-        expect(panel.isLit('up')).to.be.false;
+        expect(panel.isLit.bind(panel, 'down')).to.throw(Error, 'Button does not exist');
 
-        expect(panel.isLit('down')).to.be.null;
+        expect(panel.press.bind(panel, 'down')).to.throw(Error, 'Button does not exist');
     });
 
-    it('should only provide a down button if instantiated for the top floor', function () {
+    it('should not have a up button if instantiated for the top floor', function () {
         var panel = new OutsidePanel(7, elevator);
 
-        expect(panel.isLit('up')).to.be.null;
+        expect(panel.isLit.bind(panel, 'up')).to.throw(Error, 'Button does not exist');
 
-        expect(panel.isLit('down')).to.be.false;
+        expect(panel.press.bind(panel, 'up')).to.throw(Error, 'Button does not exist');
     });
 
     it('should provide both buttons if instantiated anywhere between the top and bottom floors', function () {
