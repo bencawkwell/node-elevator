@@ -1,5 +1,7 @@
 # An elevator, written in Node.js
 
+![Screenshot of the elevator in action](screenshot.gif)
+
 ## Dependencies
 
 This project has been tested with the following:
