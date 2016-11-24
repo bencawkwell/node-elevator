@@ -187,6 +187,18 @@ describe('Module Elevator', function () {
         }, floorDelayMs * 3);
     });
 
+    it('should return to the requested floor if on that floor but already travelling down ', function (done) {
+        this.timeout(1000);
+        this.skip(); // This race condition has not yet been fixed, the user will have to call again
+
+        setupExpectedVisitedFloorOrder([2,4], done);
+
+        // Start moving to another floor
+        elevator.goToFloor(2);
+        // immediately request to go down from the current floor
+        elevator.goToFloor(4, 'down');
+    });
+
     it('should return to the requested floor if on that floor but already travelling up', function (done) {
         this.timeout(1000);
 

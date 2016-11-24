@@ -1,0 +1,18 @@
+{
+  "esversion": 6,
+  "browser": false,
+  "node": true,
+  "expr": true,
+
+  "globals": {
+    "require": true,
+    "module": true,
+    "describe": false,
+    "it": false,
+    "before": false,
+    "after": false,
+    "beforeEach": true,
+    "afterEach": true,
+    "expect": true
+  }
+}
