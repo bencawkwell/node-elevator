@@ -51,6 +51,17 @@ insidePanel.press(2); outPanel4.press(u)
 
 ## Some corner cases
 
+Scenario: Request to go the current floor
+```
+  Given the elevator is on floor 4
+  When button 4 is pressed on the inside panel
+  Then the elevator should do nothing
+```
+
+```javascript
+insidePanel.press(4)
+```
+
 Scenario: Request to go up and down from the same floor
 ```
   Given the elevator is on floor 4 and is travelling to floor 7

@@ -154,8 +154,23 @@ describe('Module Elevator', function () {
         }, floorDelayMs * 4);
     });
 
+    it('should visit the highest floor when switching direction from going up to down', function (done) {
+        this.timeout(1000);
+
+        setupExpectedVisitedFloorOrder([6,7,4], done);
+
+        // We happen to be on 4th and want to travel to 6th
+        elevator.goToFloor(4);
+        elevator.goToFloor(6);
+        setTimeout(() => {
+            // somebody wants to go down from 4th floor after elevator has already started going up
+            elevator.goToFloor(4, 'down');
+            // and sombody else on 7th also ants to go down
+            elevator.goToFloor(7, 'down');
+        }, floorDelayMs * 1);
+    });
+
     it('should visit the same floor in both directions when switching direction from going up to down', function (done) {
-        var visitedFloorList = [];
         this.timeout(1000);
 
         setupExpectedVisitedFloorOrder([1,6,7,6], done);
@@ -170,6 +185,17 @@ describe('Module Elevator', function () {
              // Now while the elevator is heading upwards a request from 7th
             elevator.goToFloor(7, 'down');
         }, floorDelayMs * 3);
+    });
+
+    it('should return to the requested floor if on that floor but already travelling up', function (done) {
+        this.timeout(1000);
+
+        setupExpectedVisitedFloorOrder([7,4], done);
+
+        // Start moving to another floor
+        elevator.goToFloor(7);
+        // immediately request to go down from the current floor (this was a race condition scenario)
+        elevator.goToFloor(4, 'down');
     });
 
 });
