@@ -27,7 +27,7 @@ var fs              = require('fs'),
 
 replServer.context.showFloor   = function () {
     return elevator.currentFloor;
-}
+};
 replServer.context.insidePanel = insidePanel;
 replServer.context.outPanel1   = outPanel1;
 replServer.context.outPanel2   = outPanel2;
@@ -72,7 +72,7 @@ elevator.on('approachingFloor', function () {
         ', Outside Panel light (down): ' + getOutsidePanelLitStatus(floor, 'down') +
         '\n'
     );
-})
+});
 
 /**
  * Log every time the elevator stops, and report the floor, and lit status of
@@ -89,4 +89,4 @@ elevator.on('stoppedOnFloor', function (data) {
             '\n'
         );
     }, 10);
-})
+});

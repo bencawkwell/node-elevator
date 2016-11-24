@@ -65,3 +65,9 @@ outPanel7.press(d)      // equivalent to the above
 ```shell
 npm test
 ```
+
+## jsint
+
+```shell
+npm run jshint
+```

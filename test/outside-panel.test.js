@@ -51,7 +51,7 @@ describe('Module OutsidePanel', function () {
     it('should light up the correct button when a button is pressed', function () {
         var panel = new OutsidePanel(5, elevator);
 
-        panel.press('up')
+        panel.press('up');
 
         expect(panel.isLit('up')).to.be.true;
 
